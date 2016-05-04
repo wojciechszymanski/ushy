@@ -1,0 +1,31 @@
+/* Only demo */
+@media (max-width: 1000px) {
+  .welcome-message {
+    display: none;
+  }
+}
+
+.middle-box-up {
+    max-width: 460px;
+    z-index: 100;
+    margin: 0 auto 40px;
+}
+
+.wrapper .middle-box {
+    margin-top: 0px;
+}
+
+.loginscreen.middle-box {
+    padding-top: 0px;
+    width: 460px;
+    background-color: #fff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px; 
+}
+
+.loginscreen.middle-box > div {
+    margin: 0 5%;
+    padding: 50px 10px 60px; 
+}
