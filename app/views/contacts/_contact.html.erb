@@ -1,0 +1,13 @@
+<div class="contact-box">
+    
+    <div class="col-sm-12">
+        <h3><strong><%= contact.name %></strong></h3>
+        <address>
+            <abbr title="Email">E:</abbr> <%= mail_to contact.email %><br>
+            <abbr title="Phone">P:</abbr> <%= contact.phone || "-" %><br>
+            <abbr title="Mobile">M:</abbr> <%= contact.mobile || "-" %><br>
+        </address>
+    </div>
+    <div class="clearfix"></div>
+
+</div>

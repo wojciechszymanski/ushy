@@ -4,9 +4,7 @@
     <h2>Manage <%= yield(:current_page) %></h2>
     <ol class="breadcrumb">
       <li>
-      	 <% if current_admin %>
-            <%= link_to 'Dashboard', root_path %>
-        <% end %>
+          <%= link_to 'Dashboard', root_path %>
       </li>
       <li class="active">
         <strong><%= yield(:current_page) %></strong>

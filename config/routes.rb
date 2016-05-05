@@ -1,16 +1,26 @@
 Rails.application.routes.draw do
 
-  devise_for :users
-
-  devise_scope :users do
+  
+  resources :suppliers
+  devise_scope :user do
 
     get "sign_in", to: "devise/sessions#new"
     get "sign_out", to: "devise/sessions#destroy"
 
   end
 
-  root 'pages#home'
+  devise_for :users
+  
 
+  authenticate :user do
+
+    scope "/admin" do
+      resources :users
+    end
+    
+    root 'pages#home'
+
+  end
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

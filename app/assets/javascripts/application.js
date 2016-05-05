@@ -18,4 +18,6 @@
 //= require pace/pace.min.js
 //= require slimscroll/jquery.slimscroll.min.js
 //= require staps/jquery.steps.min.js
+//= require dataTables/datatables.min.js
 //= require inspinia.js
+//= require_tree .
