@@ -15,6 +15,7 @@ class SuppliersController < ApplicationController
   # GET /suppliers/new
   def new
     @supplier = Supplier.new
+    @supplier.contact = @supplier.build_contact
   end
 
   # GET /suppliers/1/edit
@@ -28,7 +29,7 @@ class SuppliersController < ApplicationController
 
     respond_to do |format|
       if @supplier.save
-        format.html { redirect_to @supplier, notice: 'Supplier was successfully created.' }
+        format.html { redirect_to suppliers_url, notice: 'Supplier was successfully created.' }
         format.json { render :show, status: :created, location: @supplier }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class SuppliersController < ApplicationController
   def update
     respond_to do |format|
       if @supplier.update(supplier_params)
-        format.html { redirect_to @supplier, notice: 'Supplier was successfully updated.' }
+        format.html { redirect_to suppliers_url, notice: 'Supplier was successfully updated.' }
         format.json { render :show, status: :ok, location: @supplier }
       else
         format.html { render :edit }
@@ -65,10 +66,11 @@ class SuppliersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_supplier
       @supplier = Supplier.find(params[:id])
+      @supplier.contact ||= Contact.new
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def supplier_params
-      params.require(:supplier).permit(:company_name, :address1, :address2, :city, :county, :postcode, :notes)
+      params.require(:supplier).permit(:company_name, :address1, :address2, :city, :county, :postcode, :notes, contact_attributes: [:name, :phone, :mobile, :supplier_id, :email, :id])
     end
 end

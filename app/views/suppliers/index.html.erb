@@ -30,9 +30,25 @@
               <td><%= supplier.company_name %></td>
               <td><i class="fa fa-map-marker"></i> <%= output_address(supplier, " ").html_safe %></td>
               <td>
-                <% if supplier.contacts.any? %>
-                <%= render supplier.contacts %>
-                <% end %>
+                <div id="container_contacts">
+                <% if supplier.contact %>
+                  <div class="contact-box" id="contact-<%= supplier.contact.id %>">
+                    
+                    <div class="col-sm-12">
+
+                      <h3><strong><i class="fa fa-user"></i> <%= supplier.contact.name %></strong></h3>
+                      <address>
+                        <abbr title="Email">E:</abbr> <%= mail_to supplier.contact.email %><br>
+                        <abbr title="Phone">P:</abbr> <%= supplier.contact.phone.empty? ? "-" : supplier.contact.phone %><br>
+                        <abbr title="Mobile">M:</abbr> <%= supplier.contact.mobile.empty? ? "-" : supplier.contact.mobile %><br>
+                      </address>
+                    </div>
+                    <div class="clearfix"></div>                 
+                  </div>
+                  <% else %>
+
+                  <% end %>
+                </div>
               </td>
               <td><%= link_to 'Edit', edit_supplier_path(supplier) %></td>
               <td><%= link_to 'Delete', supplier, method: :delete, data: { confirm: 'Are you sure?' } %></td>

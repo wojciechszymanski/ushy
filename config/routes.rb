@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
 
   
-  resources :suppliers
+  resources :product_categories
+  resources :units
+  resources :courses
+  resources :customers
+  resources :suppliers 
+
+  resources :contacts
+
   devise_scope :user do
 
     get "sign_in", to: "devise/sessions#new"
@@ -11,7 +18,6 @@ Rails.application.routes.draw do
 
   devise_for :users
   
-
   authenticate :user do
 
     scope "/admin" do

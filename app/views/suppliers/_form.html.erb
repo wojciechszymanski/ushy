@@ -1,15 +1,16 @@
 <div class="row">
+	<%= simple_form_for(@supplier, html: { id: "supplier" }) do |f| %>
 	<div class="col-lg-7">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5><%= action_name.humanize %>&nbsp;<%= yield(:current_page).singularize %></h5>
+				<h5><%= yield(:current_page).singularize %></h5>
 				<div class="ibox-tools">
-				<%= link_to 'Back', suppliers_path %>
+					<%= link_to 'Back', suppliers_path %>
 				</div>
 			</div>
 			<div class="ibox-content">
 
-				<%= simple_form_for(@supplier) do |f| %>
+				
 				<%= f.error_notification %>
 
 				<div class="form-inputs">
@@ -30,53 +31,76 @@
 
 					<div class="hr-line-dashed"></div>
 
-					
-					
 				</div>
 
-				<div class="form-actions">
-					<%= f.button :submit %>
-				</div>						
+									
 
 			</div>					
 
-			<% end %>
+			
 
 		</div>
 
 	</div>
+	
 	<div class="col-lg-5">
-				<div class="ibox float-e-margins">
+		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<h5>Supplier Contacts</h5>
+				<h5>Supplier Contact</h5>
 				<div class="ibox-tools">
-				<%= link_to 'Back', suppliers_path %>
 				</div>
 			</div>
-			<div class="ibox-content">
-				<% if @supplier.contacts.any? %>
-				<%= render @supplier.contacts %>
+			<div class="ibox-content" id="container_contacts">
+				<%= f.fields_for :contact do |a| %>
+					<%= a.input :name, required: true %>
+					<div class="hr-line-dashed"></div>
+					<%= a.input :phone, required: false %>
+					<div class="hr-line-dashed"></div>
+					<%= a.input :mobile, required: false %>
+					<div class="hr-line-dashed"></div>
+					<%= a.input :email, required: true %>
+					<div class="hr-line-dashed"></div>
 				<% end %>
+
+				<div class="form-actions">
+					<%= f.button :submit %>
+				</div>	
+
 			</div>
-			</div>
+
+
+		</div>
 	</div>
+	<% end %>
 </div>
+
+<% if params[:action] == 'edit' %>
+	<%= render 'dialog' %>
+<% end %>
 
 <% content_for :javascript do %>
 
- <script type="text/javascript">
+<script type="text/javascript">
 
 
-  $(function() {
+	$(function() {
 
-    $(".simple_form").validate({
-      errorPlacement: function (error, element) {
-        element.before(error);
-      }
-    });
+		$("#supplier").validate({
+			errorPlacement: function (error, element) {
+				element.before(error);
+			}
+		});
 
-  });
+		$("#contact").validate({
+			errorPlacement: function (error, element) {
+				element.before(error);
+			}
+		});
 
- </script>
+		
 
- <% end %>
+	});
+
+</script>
+
+<% end %>

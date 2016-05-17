@@ -1,13 +1,87 @@
-<div class="contact-box">
+<div class="contact-box" id="contact-<%= contact.id %>">
     
     <div class="col-sm-12">
+
+    <%= link_to contact, remote: true, method: :delete, data: { confirm: 'Are you sure?' }, class:"pull-right" do %>
+    	<span class="btn btn-danger btn-circle" type="button"><i class="fa fa-trash"></i></span>
+    <% end %>
+	
+	<a class="pull-right" data-toggle="modal" data-target="#contactModal-<%= contact.id %>">
+		<span class="btn btn-primary btn-circle" type="button"><i class="fa fa-edit"></i> </span>
+	</a>
+
+
         <h3><strong><%= contact.name %></strong></h3>
         <address>
             <abbr title="Email">E:</abbr> <%= mail_to contact.email %><br>
-            <abbr title="Phone">P:</abbr> <%= contact.phone || "-" %><br>
-            <abbr title="Mobile">M:</abbr> <%= contact.mobile || "-" %><br>
+            <abbr title="Phone">P:</abbr> <%= contact.phone.empty? ? "-" : contact.phone %><br>
+            <abbr title="Mobile">M:</abbr> <%= contact.mobile.empty? ? "-" : contact.mobile %><br>
         </address>
     </div>
-    <div class="clearfix"></div>
-
+    <div class="clearfix"></div>                 
 </div>
+
+<div class="modal inmodal" id="contactModal-<%= contact.id %>" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content animated bounceInRight">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<i class="fa fa-user modal-icon"></i>
+				<h4 class="modal-title">Add Supplier Contact</h4>
+
+			</div>
+
+			<%= simple_form_for(contact, :method => :put, remote: true, html: { id: "contact_form_#{contact.id}" }) do |f| %>
+
+			
+			<div class="modal-body">
+
+				
+				<%= f.error_notification %>
+
+				<div id="error_explanation"></div>
+
+				<div class="form-inputs">
+					<%= f.input :name, required: true %>
+					<div class="hr-line-dashed"></div>
+					<%= f.input :phone, required: false %>
+					<div class="hr-line-dashed"></div>
+					<%= f.input :mobile, required: false %>
+					<div class="hr-line-dashed"></div>
+					<%= f.input :email, required: true %>
+					<div class="hr-line-dashed"></div>
+					<%= f.input :id, :as => :hidden, :input_html => { :value => contact.id } %>
+					
+				</div>
+				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+				<%= f.button :submit, class:"btn btn-primary" %>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+
+	$(function() {
+
+
+		$("#contact_form_<%= contact.id %>").validate({
+			errorPlacement: function (error, element) {
+				element.before(error);
+			}
+		});
+
+		
+
+	});
+
+</script>
+
+<% end %>

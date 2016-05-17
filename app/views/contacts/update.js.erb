@@ -1,0 +1,8 @@
+$("#contactModal-<%= @contact.id %>").modal('hide');
+
+$("#contact-<%= @contact.id %>").fadeOut(500, function(){
+
+	$(this).remove();
+	$("#container_contacts").prepend('<%= j render @contact %>');
+	
+});

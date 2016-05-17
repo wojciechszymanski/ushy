@@ -9,3 +9,7 @@
 User.create({name:"Admin", email: "wojciech@pimdesign.com", password: "p1mdesign", password_confirmation: "p1mdesign", admin: true, phone: ""})
 
 User.create({name:"Ray Cook", email: "ray@pimdesign.com", password: "p1mdesign", password_confirmation: "p1mdesign", admin: true, phone: ""})
+
+Unit.create({short:"g", long: "gram"})
+
+Course.create({name:"Reception"})
