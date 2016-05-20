@@ -1,0 +1,62 @@
+<%= render 'var' %>
+<div class="ibox-content p-xl">
+  <div class="row">
+    <%= link_to 'Back', dishes_path, class: "pull-right" %>
+    <h2><%= @dish.name %></h2>
+    <%= @dish.description.gsub(/\n/, '<br/>').html_safe %>
+  </div>
+  <hr>
+  <%= link_to new_dish_ingredient_path(@dish), remote: true, class: "btn btn-primary" do %>
+  <i class="fa fa-plus" aria-hidden="true"></i> Add Ingredient
+  <% end %>
+  <div class="table-responsive m-t">
+    <table class="table" id="table_ingredients">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Qty</th>
+          <th>Unit</th>
+          <th>Special instructions</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody id="ingredient">
+        <%= render @ingredients %>
+      </tbody>
+    </table>
+  </div><!-- /table-responsive -->
+</div>
+
+<%= render 'dialog' %>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+
+  $(function() {
+
+
+    $('#table_ingredients').dataTable({
+      "dom": 'T<"clear">lfrtip',
+      "paging":   false,
+      "bProcessing": true,
+      "aoColumns": [
+      null,
+      null,
+      null,
+      null,
+      { "bSortable": false },
+      { "bSortable": false }
+      ]
+    });
+
+
+  });
+
+
+</script>
+
+<% end %>

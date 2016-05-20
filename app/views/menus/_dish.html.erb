@@ -1,0 +1,4 @@
+<tr id="dish_<%= @dish.id %>">
+	<td><%= @dish.name %></td>
+	<td><%= link_to 'Delete',  deletedish_menus_path(:id => @menu.id, :dish_id => @dish.id), method: :post, data: { confirm: 'Are you sure?' }, remote: true %></td>
+</tr>

@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5><%= action_name.humanize %>&nbsp;<%= yield(:current_page).singularize %></h5>
+        <div class="ibox-tools">
+        <%= link_to 'Back', dishes_path %>
+        </div>
+      </div>
+      <div class="ibox-content">
+        <%= simple_form_for(@dish) do |f| %>
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+          <%= f.association :course %>
+          <div class="hr-line-dashed"></div>
+          <%= f.input :name %>
+          <div class="hr-line-dashed"></div>
+          <%= f.input :description %>
+          <div class="hr-line-dashed"></div>
+          <%= f.input :preparation_time %>
+          <div class="hr-line-dashed"></div>
+          <%= f.input :cooking_time %>
+          <div class="hr-line-dashed"></div>
+          <%= f.input :serves %>
+          <div class="hr-line-dashed"></div>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit %>
+        </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+
+  <% content_for :javascript do %>
+
+  <script type="text/javascript">
+
+
+    $(function() {
+
+      $(".simple_form").validate({
+        errorPlacement: function (error, element) {
+          element.before(error);
+        }
+      });
+
+    });
+
+  </script>
+
+  <% end %>

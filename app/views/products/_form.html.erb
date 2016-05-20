@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5><%= action_name.humanize %>&nbsp;<%= yield(:current_page).singularize %></h5>
+        <div class="ibox-tools">
+          <%= link_to 'Back', products_path %>
+        </div>
+      </div>
+      <div class="ibox-content">
+        <%= simple_form_for(@product) do |f| %>
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+          <%= f.association :product_category %>
+          <div id="new_product_category">
+          </div>
+          <div class="hr-line-dashed"></div>
+          <%= f.input :name %>
+          <div class="hr-line-dashed"></div>
+          <%= f.association :unit,:label_method => :short%>
+          <div class="hr-line-dashed"></div>
+          <%= f.input :qty_in_stock %>
+          <div class="hr-line-dashed"></div>
+          <%= f.input :qty_allocated %>
+          <div class="hr-line-dashed"></div>
+          <%= f.input :low_stock_qty %>
+          <div class="hr-line-dashed"></div>
+          <%= f.input :re_order_qty %>
+          <div class="hr-line-dashed"></div>
+          <%= f.input :indicative_selling %>
+          <div class="hr-line-dashed"></div>
+          <%= f.input :manage_stock, :as => :select, :collection => Product.manage_stocks.keys.to_a %>
+          <div class="hr-line-dashed"></div>
+          
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit %>
+        </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+
+  <% content_for :javascript do %>
+
+  <script type="text/javascript">
+
+
+    $(function() {
+
+      $(".simple_form").validate({
+        errorPlacement: function (error, element) {
+          element.before(error);
+        }
+      });
+
+      $('#product_product_category_id').append("<option value='other'>Other</option>");
+
+      $('#product_product_category_id').change(function() {
+        if( $(this).val() === 'other' ) {
+          $('#new_product_category').append("<input type='text' id='new_product_category_name' placeholder='Please enter new product category' name='new_product_category_name' class='required form-control'>");
+        }else {
+          $('#new_product_category_name').remove();
+        }
+      });
+
+    });
+
+  </script>
+
+  <% end %>

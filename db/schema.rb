@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517154913) do
+ActiveRecord::Schema.define(version: 20160520082246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,41 @@ ActiveRecord::Schema.define(version: 20160517154913) do
     t.string   "email"
   end
 
+  create_table "dishes", force: :cascade do |t|
+    t.integer  "course_id"
+    t.string   "name"
+    t.text     "description"
+    t.string   "preparation_time"
+    t.string   "cooking_time"
+    t.integer  "serves"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "ingredients", force: :cascade do |t|
+    t.integer  "product_id"
+    t.integer  "dish_id"
+    t.float    "qty"
+    t.string   "special_instructions"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "menu_dishes", force: :cascade do |t|
+    t.integer  "menu_id"
+    t.integer  "course_id"
+    t.integer  "dish_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "menus", force: :cascade do |t|
+    t.string   "name"
+    t.text     "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "product_categories", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -59,6 +94,22 @@ ActiveRecord::Schema.define(version: 20160517154913) do
   end
 
   add_index "product_categories", ["name"], name: "index_product_categories_on_name", using: :btree
+
+  create_table "products", force: :cascade do |t|
+    t.integer  "product_category_id"
+    t.string   "name"
+    t.integer  "unit_id"
+    t.integer  "qty_in_stock",        default: 0
+    t.integer  "qty_allocated",       default: 0
+    t.integer  "low_stock_qty",       default: 0
+    t.integer  "re_order_qty",        default: 0
+    t.integer  "indicative_selling",  default: 0
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "manage_stock",        default: 0
+  end
+
+  add_index "products", ["name"], name: "index_products_on_name", using: :btree
 
   create_table "suppliers", force: :cascade do |t|
     t.string   "company_name"

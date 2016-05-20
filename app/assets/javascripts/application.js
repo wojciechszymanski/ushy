@@ -12,6 +12,7 @@
 //
 //= require jquery/jquery-2.1.1.js
 //= require jquery_ujs
+//= require turbolinks
 //= require validate/jquery.validate.min.js
 //= require bootstrap-sprockets
 //= require metisMenu/jquery.metisMenu.js

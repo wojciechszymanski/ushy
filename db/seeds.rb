@@ -13,3 +13,7 @@ User.create({name:"Ray Cook", email: "ray@pimdesign.com", password: "p1mdesign",
 Unit.create({short:"g", long: "gram"})
 
 Course.create({name:"Reception"})
+
+ProductCategory.create({name:"Desert"})
+
+Product.create({name:"Chocolate Brownie", product_category_id: 1, unit_id: 1, qty_in_stock: 1})

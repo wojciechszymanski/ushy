@@ -1,0 +1,19 @@
+
+// Hide dialog
+// $('#dialog').modal('toggle');
+
+// Add the new customer row
+$('#ingredient').append('<%= j render (@ingredient) %>')
+
+$('#dialog h3').html("<i class='glyphicon glyphicon-plus'></i> Add Next Ingredient").fadeIn(100).fadeOut(100).fadeIn(100);
+
+$('#dialog .modal-body form')[0].reset();
+$('#dialog .modal-body form .first_input').focus();
+
+$(".simple_form").validate({
+	errorPlacement: function (error, element) {
+	  element.before(error);
+	}
+});
+
+$('.dataTables_empty').fadeOut();

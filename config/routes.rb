@@ -1,6 +1,24 @@
 Rails.application.routes.draw do
 
   
+  
+  resources :menus do
+    collection {
+      post 'adddish', to: 'menus#adddish'
+      post 'deletedish', to: 'menus#deletedish'
+    }
+  end
+
+
+
+  resources :dishes do
+    resources :ingredients
+  end 
+
+  resources :products do
+    get 'copy'
+  end
+  
   resources :product_categories
   resources :units
   resources :courses

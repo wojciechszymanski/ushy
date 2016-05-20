@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Product category:</strong>
+  <%= @product.product_category_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @product.name %>
+</p>
+
+<p>
+  <strong>Unit:</strong>
+  <%= @product.unit_id %>
+</p>
+
+<p>
+  <strong>Qty in stock:</strong>
+  <%= @product.qty_in_stock %>
+</p>
+
+<p>
+  <strong>Qty allocated:</strong>
+  <%= @product.qty_allocated %>
+</p>
+
+<p>
+  <strong>Low stock qty:</strong>
+  <%= @product.low_stock_qty %>
+</p>
+
+<p>
+  <strong>Re order qty:</strong>
+  <%= @product.re_order_qty %>
+</p>
+
+<p>
+  <strong>Indicative selling:</strong>
+  <%= @product.indicative_selling %>
+</p>
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>

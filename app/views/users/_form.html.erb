@@ -4,7 +4,7 @@
 			<div class="ibox-title">
 				<h5><%= action_name.humanize %>&nbsp;<%= yield(:current_page).singularize %></h5>
 				<div class="ibox-tools">
-				<%= link_to 'Back', users_path %>
+					<%= link_to 'Back', users_path %>
 				</div>
 			</div>
 			<div class="ibox-content">
@@ -58,19 +58,19 @@
 
 <% content_for :javascript do %>
 
- <script type="text/javascript">
+<script type="text/javascript">
 
 
-  $(function() {
+	$(function() {
 
-    $(".simple_form").validate({
-      errorPlacement: function (error, element) {
-        element.before(error);
-      }
-    });
+		$(".simple_form").validate({
+			errorPlacement: function (error, element) {
+				element.before(error);
+			}
+		});
 
-  });
+	});
 
- </script>
+</script>
 
- <% end %>
+<% end %>

@@ -1,0 +1,38 @@
+# == Schema Information
+#
+# Table name: products
+#
+#  id                  :integer          not null, primary key
+#  product_category_id :integer
+#  name                :string
+#  unit_id             :integer
+#  qty_in_stock        :integer          default("0")
+#  qty_allocated       :integer          default("0")
+#  low_stock_qty       :integer          default("0")
+#  re_order_qty        :integer          default("0")
+#  indicative_selling  :integer          default("0")
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product_category_id: 1
+  name: MyString
+  unit_id: 1
+  qty_in_stock: 
+  qty_allocated: 1
+  low_stock_qty: 1
+  re_order_qty: 1
+  indicative_selling: 1
+
+two:
+  product_category_id: 1
+  name: MyString
+  unit_id: 1
+  qty_in_stock: 
+  qty_allocated: 1
+  low_stock_qty: 1
+  re_order_qty: 1
+  indicative_selling: 1

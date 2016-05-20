@@ -1,0 +1,8 @@
+<tr id="ingredient_<%= ingredient.id %>">
+	<td><%= ingredient.product.name %></td>
+	<td><%= ingredient.qty %></td>
+	<td><%= ingredient.product.unit.short %></td>
+	<td><%= ingredient.special_instructions %></td>
+	<td><%= link_to 'Edit', edit_dish_ingredient_path(@dish, ingredient), remote: true %></td>
+	<td><%= link_to 'Delete', dish_ingredient_path(@dish, ingredient), method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+</tr>

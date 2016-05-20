@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-content">
+        <%= simple_form_for([@ingredient.dish, @ingredient], remote: true, :html => { :role => "form" }) do |f| %>
+        <%= f.error_notification %>
+
+        <div class="form-inputs">
+          <%= f.association :product, :label_method => lambda { |product| "#{product.name} (#{product.unit.short})".html_safe }, :input_html => {class: "first_input"} %>
+          <%= f.input :qty %>
+          <%= f.input :special_instructions %>
+          <%= f.input :dish_id, :as => :hidden, :input_html => { :value => @dish.id } %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit %>
+        </div>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

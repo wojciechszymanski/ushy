@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  prevent_destroy_if_any:
+    messages:
+      cannot_delete_parent_object: "You cannot delete %{parent_object} while associated %{associated_objects} exist"

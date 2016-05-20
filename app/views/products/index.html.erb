@@ -1,0 +1,78 @@
+<%= render 'var' %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <%= link_to new_product_path, class: "btn btn-outline btn-primary" do %>
+        <i class="fa fa-plus"></i> New <%= yield(:current_page).singularize %>
+        <% end %>
+        <div class="ibox-tools">
+          &nbsp;
+        </div>
+      </div>
+      <div class="ibox-content">
+
+        <table id="products" class="table table-striped table-bordered table-hover" data-source="<%= products_url(format: "json") %>">
+          <thead>
+            <tr>
+              <th>Product category</th>
+              <th>Name</th>
+              <th>Qty in stock</th>
+              <th>Unit</th>
+              <th>Last Supplied by</th>
+              <th>Last Price</th>
+              <th>Manage Stock</th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+          </tbody>
+        </table>
+       
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+
+  $(function() {
+
+
+    $('#products').dataTable({
+      "dom": 'T<"clear">lfrtip',
+      "sAjaxSource": $('#products').data('source'),
+      "sPaginationType": "full_numbers",
+      "lengthMenu": [ [10, 25, 50], [10, 25, 50] ],
+      "bProcessing": true,
+      "bServerSide": true,
+      "stateSave": true,
+      "sAjaxSource": $('#products').data('source'),
+      "aoColumns": [
+      null,
+      null,
+      null,
+      null,
+      { "bSortable": false },
+      { "bSortable": false },
+      null,
+      { "bSortable": false },
+      { "bSortable": false },
+      { "bSortable": false }
+      ]
+    });
+
+
+  });
+
+
+</script>
+
+<% end %>
