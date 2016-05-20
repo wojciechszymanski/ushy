@@ -68,7 +68,9 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: rails_project_production
-  username: rails
-  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
+  adapter: postgresql
+  database: ushy_production
+  encoding: utf8
+  min_messages: warning
+  pool: 5
+  timeout: 5000
