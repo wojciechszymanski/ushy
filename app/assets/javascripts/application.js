@@ -20,5 +20,7 @@
 //= require slimscroll/jquery.slimscroll.min.js
 //= require staps/jquery.steps.min.js
 //= require dataTables/datatables.min.js
+//= require select2/select2.full.min.js
+//= require toastr/toastr.min.js
 //= require inspinia.js
 //= require_tree .

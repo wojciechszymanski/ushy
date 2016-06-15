@@ -1,0 +1,80 @@
+<%= render 'var' %>
+<div class="middle-box animated fadeInDown">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="ibox float-e-margins">
+				<div class="ibox-title">
+					<h5><%= action_name.humanize %>&nbsp;<%= yield(:current_page).singularize %></h5>
+					<div class="ibox-tools">
+						<%= link_to 'Back', events_path %>
+					</div>
+				</div>
+				<div class="ibox-content">
+					<%= simple_form_for(@event) do |f| %>
+					<%= f.error_notification %>
+
+					<div class="form-inputs">
+						<%= f.input :event_title %>
+						<div class="hr-line-dashed"></div>
+
+						<%= f.input :event_date, as: :string, input_html: { class: "form-control datepicker", value: Time.now.strftime('%d/%m/%Y') }  %>
+						<div class="hr-line-dashed"></div>						
+
+						<%= f.label :customer do %>
+							<abbr title="required">*</abbr> Customer &nbsp;
+							<%= link_to new_customer_path, remote: true, class: "btn btn-primary btn-xs" do %>
+							<i class="fa fa-plus"></i>
+							<% end %>
+						<% end %>
+   						<%= f.association :customer, :label_method=> lambda { |customer| "#{customer.name} (#{customer.email})"}, value_method: :id, label: false, input_html: { class: "select2" }%>
+
+						<div class="hr-line-dashed"></div>
+
+					</div>
+
+					<div class="form-actions">
+						<%= f.button :submit %>
+					</div>
+					<% end %>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<%= render 'dialog' %>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+
+	$(function() {
+
+		$(".simple_form").validate({
+			errorPlacement: function (error, element) {
+				element.before(error);
+			}
+		});
+
+		$('.datepicker').datepicker({
+			todayBtn: "linked",
+			keyboardNavigation: false,
+			forceParse: false,
+			calendarWeeks: true,
+			autoclose: true,
+			format: 'dd/mm/yyyy'
+		});
+
+		$(".select2").select2({
+	        placeholder: "Select customer",
+	        allowClear: true
+	    });
+
+	});
+
+</script>
+
+<% end %>

@@ -1,0 +1,11 @@
+console.log('Customer updated');
+// Add the new customer row
+<% if @updated %>
+	// add to select
+
+	$('#dialog').modal('toggle');
+	toastr.success('Customer was successfully updated');
+
+<% else %>
+	toastr.error('ERROR(S):<br /> <%= j @customer.errors.full_messages.join("<br> ").html_safe  %>.<br />Please try again');
+<% end %>

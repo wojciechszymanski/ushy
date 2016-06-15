@@ -1,0 +1,15 @@
+console.log('Dish added: <%= @customer.name %>');
+// Add the new customer row
+<% if @created %>
+	// Hide dialog
+	$('#dialog').modal('toggle');
+	// add to select
+	$("#event_customer_id").append($('<option></option>').val("<%= @customer.id%>").html('<%= @customer.name + " (" + @customer.email + ")" %>'));
+	// dynamically set the "selected" value of a Select2 component:
+	$('#event_customer_id').select2('val','<%= @customer.id%>');
+
+	toastr.success('<%= @customer.name %> was added to customer list');
+<% else %>
+	toastr.info('ERROR(S): <%= j @customer.errors.full_messages.join("<br> ")  %>. Please try again');
+<% end %>
+

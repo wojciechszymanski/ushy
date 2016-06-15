@@ -19,6 +19,15 @@ class CustomersController < ApplicationController
 
   # GET /customers/1/edit
   def edit
+      # detect type of the request
+      if request.xhr?
+        # respond to Ajax request
+        @remote = true
+      else
+        # respond to normal request
+        @remote = false
+      end
+
   end
 
   # POST /customers
@@ -28,11 +37,16 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
+
+        @created = true
+
         format.html { redirect_to customers_url, notice: 'Customer was successfully created.' }
         format.json { render :show, status: :created, location: @customer }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @customer.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end
@@ -42,11 +56,14 @@ class CustomersController < ApplicationController
   def update
     respond_to do |format|
       if @customer.update(customer_params)
+        @updated = true
         format.html { redirect_to customers_url, notice: 'Customer was successfully updated.' }
         format.json { render :show, status: :ok, location: @customer }
+        format.js
       else
         format.html { render :edit }
         format.json { render json: @customer.errors, status: :unprocessable_entity }
+        format.js
       end
     end
   end

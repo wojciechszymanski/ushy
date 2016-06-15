@@ -1,0 +1,145 @@
+<%= simple_form_for(@event, remote: true, :html => { :role => "form"}) do |f| %>
+<%= f.error_notification %>
+<div class="ibox">
+  <div class="ibox-content">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="m-b-md">
+          <%= link_to 'Back', events_path, class:"btn btn-white btn-xs pull-right" %>
+          <h2><%= @event.event_title %></h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-2">
+        <dl class="dl-horizontal">
+
+          <dt>Date:</dt> <dd><%= @event.event_date %></dd>
+          <dt>Number of Guests:</dt> <dd>  <%= @event.covers %></dd>
+          
+        </dl>
+      </div>
+      <div class="col-lg-5" id="contact_info">
+        <dl class="dl-horizontal">
+          <dt>Client:</dt> <dd>
+          <%= @event.customer.name %> <%= link_to edit_customer_path(@event.customer), remote: true, class: "btn btn-primary btn-xs" do %>
+              <i class="fa fa-edit"></i>
+              <% end %> <br> <%= @event.customer.contact %>
+          
+          </dd>
+          
+        </dl>
+      </div>
+      <div class="col-lg-5" id="address_info">
+        <dl class="dl-horizontal">
+          <dt>Address:</dt> <dd><%= @event.customer.address %> </dd>
+          
+        </dl>
+      </div>
+    </div>
+
+    <div class="row m-t-sm">
+      <div class="col-lg-12">
+        <div class="panel blank-panel">
+          <div class="panel-heading">
+            <div class="panel-options">
+              <ul class="nav nav-tabs">
+                <li class="active"><a aria-expanded="true" href="#tab-1" data-toggle="tab">Event Deatils</a></li>
+                <li class=""><a aria-expanded="false" href="#tab-2" data-toggle="tab">Event</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="panel-body">
+
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab-1">
+                <div class="form-inputs">
+
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <%= f.input :event_title %>
+                      <div class="hr-line-dashed"></div>
+                      <%= f.input :event_date, as: :string, input_html: { class: "form-control datepicker", value: Time.now.strftime('%d/%m/%Y') }  %>
+                      <div class="hr-line-dashed"></div>
+                      <%= f.association :customer, :label_method=> lambda { |customer| "#{customer.name} (#{customer.email})"}, value_method: :id, label: false, input_html: { class: "select2" } %>
+
+
+                      <div class="hr-line-dashed"></div>
+                      <%= f.input :covers %>
+                      <div class="hr-line-dashed"></div>
+                      <%= f.input :vegetarian %>
+                      <div class="hr-line-dashed"></div>
+                      <%= f.input :coeliac %>
+                      <div class="hr-line-dashed"></div>
+                      <%= f.input :sugar_free %>
+                      <div class="hr-line-dashed"></div>
+                      <%= f.input :allergies %>
+                      <div class="hr-line-dashed"></div>
+
+
+                    </div>
+                    <div class="col-lg-6">
+                    <%= f.input :venue, :input_html => { :rows => 10 }%>
+                      <div class="hr-line-dashed"></div>
+                      <%= f.input :event_details, :input_html => { :rows => 10 } %>
+                      <div class="hr-line-dashed"></div>
+                    </div>
+                  </div>
+                  
+                </div>
+
+                <div class="form-actions">
+                  <%= f.button :submit %>
+                </div>
+
+              </div>
+              <div class="tab-pane" id="tab-2">
+
+                Tab-2
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+  <%= render 'dialog' %>
+
+  <% content_for :javascript do %>
+
+  <script type="text/javascript">
+
+
+    $(function() {
+
+      $(".simple_form").validate({
+        errorPlacement: function (error, element) {
+          element.before(error);
+        }
+      });
+
+      $('.datepicker').datepicker({
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: true,
+        autoclose: true,
+        format: 'dd/mm/yyyy'
+      });
+
+      $(".select2").select2({
+        placeholder: "Select customer",
+        allowClear: true
+      });
+
+    });
+
+  </script>
+
+  <% end %>

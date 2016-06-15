@@ -1,0 +1,44 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id            :integer          not null, primary key
+#  event_title   :string
+#  event_date    :date
+#  customer_id   :integer
+#  venue         :text
+#  event_details :text
+#  covers        :integer          default("0"), not null
+#  vegetarian    :integer          default("0"), not null
+#  coeliac       :integer          default("0"), not null
+#  sugar_free    :integer          default("0"), not null
+#  allergies     :integer          default("0"), not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event_title: MyString
+  event_date: 2016-06-09
+  customer_id: 1
+  venue: MyText
+  event_details: MyText
+  covers: 1
+  vegetarian: 1
+  coeliac: 1
+  sugar_free: 1
+  allergies: 1
+
+two:
+  event_title: MyString
+  event_date: 2016-06-09
+  customer_id: 1
+  venue: MyText
+  event_details: MyText
+  covers: 1
+  vegetarian: 1
+  coeliac: 1
+  sugar_free: 1
+  allergies: 1

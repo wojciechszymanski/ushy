@@ -1,8 +1,8 @@
 console.log('Dish added: <%= @dish.name %>');
 // Add the new customer row
 <% if @created %>
-$('#dish_list_<%= @dish.course_id %>').append("<%= j render partial: 'dish', locals: { dish: @dish, menu: @menu } %>");
-	toastr.success('<%= @dish.name %> was added to <%= @dish.course.name %> course')
+$	('#dish_list_<%= @dish.course_id %>').append("<%= j render partial: 'dish', locals: { dish: @dish, menu: @menu } %>");
+	toastr.success('<%= @dish.name %> was added to <%= @dish.course.name %> course');
 <% else %>
-	toastr.info('<%= @dish.name %> is already on the list')
+	toastr.info('<%= @dish.name %> is already on the list');
 <% end %>

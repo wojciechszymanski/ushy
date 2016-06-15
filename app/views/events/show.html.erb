@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Event title:</strong>
+  <%= @event.event_title %>
+</p>
+
+<p>
+  <strong>Event date:</strong>
+  <%= @event.event_date %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @event.customer_id %>
+</p>
+
+<p>
+  <strong>Venue:</strong>
+  <%= @event.venue %>
+</p>
+
+<p>
+  <strong>Event details:</strong>
+  <%= @event.event_details %>
+</p>
+
+<p>
+  <strong>Covers:</strong>
+  <%= @event.covers %>
+</p>
+
+<p>
+  <strong>Vegetarian:</strong>
+  <%= @event.vegetarian %>
+</p>
+
+<p>
+  <strong>Coeliac:</strong>
+  <%= @event.coeliac %>
+</p>
+
+<p>
+  <strong>Sugar free:</strong>
+  <%= @event.sugar_free %>
+</p>
+
+<p>
+  <strong>Allergies:</strong>
+  <%= @event.allergies %>
+</p>
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

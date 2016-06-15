@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   
   
+  resources :events
   resources :menus do
     collection {
       post 'adddish', to: 'menus#adddish'

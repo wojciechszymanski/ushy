@@ -3,15 +3,14 @@
     <%= link_to 'Dashboard', root_path %>
 </li>
 <li>
-    <%= link_to 'Function', root_path %>
+    <%= link_to 'Function', events_path %>
 </li>
-
 <li class="dropdown">
     <a aria-expanded="false" role="button" href="#" class="dropdown-toggle" data-toggle="dropdown"> Menu <span class="caret"></span></a>
     <ul role="menu" class="dropdown-menu">
         <li><%= link_to 'Courses', courses_path %></li>
         <li><%= link_to 'Dishes', dishes_path %></li>
-        <li><%= link_to 'Menu', menus_path %></li>        
+        <li><%= link_to 'Standard Menu', menus_path %></li>        
         <li class="divider"></li>
         <li><%= link_to 'Product Categories', product_categories_path %></li>
         <li><%= link_to 'Products', products_path %></li>

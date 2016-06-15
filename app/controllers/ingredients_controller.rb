@@ -53,6 +53,7 @@ class IngredientsController < ApplicationController
         format.js
       else
         format.json { render json: @ingredient.errors.full_messages, status: :unprocessable_entity }
+        format.js
       end
     end
   end
