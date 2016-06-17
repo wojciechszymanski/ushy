@@ -18,6 +18,7 @@
 #
 
 class Event < ActiveRecord::Base
+	has_one :menu, :dependent => :delete
 	belongs_to :customer
 
 	validates_presence_of :customer_id

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160609091752) do
+ActiveRecord::Schema.define(version: 20160617145333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,8 +59,9 @@ ActiveRecord::Schema.define(version: 20160609091752) do
     t.string   "preparation_time"
     t.string   "cooking_time"
     t.integer  "serves"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "qty_required",     default: 0
   end
 
   create_table "events", force: :cascade do |t|
@@ -98,8 +99,9 @@ ActiveRecord::Schema.define(version: 20160609091752) do
   create_table "menus", force: :cascade do |t|
     t.string   "name"
     t.text     "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "event_id",   default: 0
   end
 
   create_table "product_categories", force: :cascade do |t|

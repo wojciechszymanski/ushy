@@ -2,7 +2,11 @@ Rails.application.routes.draw do
 
   
   
-  resources :events
+  resources :events do
+    collection {
+      post 'load_menu', to: 'events#load_menu'
+    }
+  end
   resources :menus do
     collection {
       post 'adddish', to: 'menus#adddish'

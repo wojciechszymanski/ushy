@@ -16,5 +16,9 @@ class Ingredient < ActiveRecord::Base
 	belongs_to :dish
 
 	validates_presence_of :product_id
-	validates_presence_of :qty  
+	validates_presence_of :qty
+
+	amoeba do
+		enable
+	end  
 end

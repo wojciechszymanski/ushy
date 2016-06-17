@@ -1,0 +1,17 @@
+<div class="col-lg-5" >
+  <dl class="dl-horizontal">
+    <dt>Client:</dt> <dd>
+    <%= customer.name %> <%= link_to edit_customer_path(customer), remote: true, class: "btn btn-primary btn-xs" do %>
+    <i class="fa fa-edit"></i>
+    <% end %> <br> <%= customer.contact %>
+
+  </dd>
+  
+</dl>
+</div>
+<div class="col-lg-5">
+  <dl class="dl-horizontal">
+    <dt>Address:</dt> <dd><%= customer.address %> </dd>
+    
+  </dl>
+</div>

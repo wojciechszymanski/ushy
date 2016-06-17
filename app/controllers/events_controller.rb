@@ -20,6 +20,35 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+
+    @event_menu = Menu.where(:event_id => @event.id).first
+
+    if @event_menu.blank?
+      @menus = Menu.standard
+    end
+    
+  end
+
+  def load_menu
+
+    if (params[:menu][:action]).downcase == "view"
+      # view
+      if !(params[:menu][:id]).blank?
+        @menu = Menu.find(params[:menu][:id])
+        @courses = Course.all
+      end
+    else
+      # copy with Amoeba
+
+       @menu = Menu.find(params[:menu][:id])
+       @courses = Course.all
+
+    end
+
+    respond_to do |format|
+      format.js
+      format.json { head :no_content }
+    end
   end
 
   # POST /events

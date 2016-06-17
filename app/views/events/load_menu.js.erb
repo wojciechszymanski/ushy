@@ -1,0 +1,17 @@
+console.log('Load menu');
+<% if !(params[:menu][:id]).blank? %>
+	
+	<% if (params[:menu][:action]).downcase == "view" %>
+		// refresh menu
+		toastr.info('Select standard menu loaded');
+		$('#menu_ajax_load').html('<%= j render("menus/load_menu") %>');
+	<% else %>
+		// refresh menu
+		toastr.info('Standard menu copied, you can now modify it components to match event requirements');
+		$('#tab_menu').html('');
+	<% end %>
+<% else %>
+	toastr.error('Select standard menu from the dropdown');
+	// reset menu holder
+	$('#menu_ajax_load').html('');
+<% end %>

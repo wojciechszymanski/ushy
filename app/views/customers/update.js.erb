@@ -5,6 +5,8 @@ console.log('Customer updated');
 
 	$('#dialog').modal('toggle');
 	toastr.success('Customer was successfully updated');
+	// refresh client info
+	$('#contact_info').html('<%= j render("contact_info", customer: @customer) %>');
 
 <% else %>
 	toastr.error('ERROR(S):<br /> <%= j @customer.errors.full_messages.join("<br> ").html_safe  %>.<br />Please try again');

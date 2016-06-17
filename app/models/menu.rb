@@ -11,6 +11,7 @@
 
 class Menu < ActiveRecord::Base
 
+	belongs_to :event
 	has_many :menu_dishes
   	has_many :dishes, through: :menu_dishes
 
@@ -18,8 +19,16 @@ class Menu < ActiveRecord::Base
 	
 	before_save :tileize_name
 
+	amoeba do
+		enable
+	end
+
 	def tileize_name
 	  self.name = self.name.titleize
+	end
+
+	def self.standard
+		where("event_id = ?", 0)
 	end
 
 end

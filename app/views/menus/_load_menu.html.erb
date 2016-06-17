@@ -1,0 +1,59 @@
+<div class="ibox-content p-xl">
+	<div class="row">
+		<%= link_to 'Edit', menu_path(@menu), class: "btn btn-white pull-right" %>
+		<h2>Standard: <%= @menu.name %></h2>
+		<hr>
+		<div class="tabs-container" id="inner-tab">
+
+			<div class="tabs-left">
+				<ul class="nav nav-tabs">
+					<% @courses.each_with_index do |course, index| %>
+					<li class="<% if index == 0 %>active<% end %>"><a aria-expanded="<% if index == 0 %>true<% else %>false<% end %>" data-toggle="tab" href="#tab-<%= index%>"> <%= course.name %></a></li>
+					<% end %>
+				</ul>
+				<div class="tab-content ">
+					<% @courses.each_with_index do |course, index| %>
+					<div id="tab-<%= index%>" class="tab-pane <% if index == 0 %>active<% end %>">
+						<div class="panel-body">
+							<% if course.dishes.any? %>
+							<table class="table table-striped table-bordered table-hover" >
+								<thead>
+									<tr>
+										<th><%= course.name %> List</th>
+									</tr>
+								</thead>
+
+								<tbody id="dish_list_<%= course.id %>">
+									<% @menu.dishes.where("dishes.course_id = ?", course.id).each do |dish| %>
+									<tr id="dish_<%= dish.id %>">
+										<td><%= dish.name %></td>
+									</tr>
+									<% end %>
+								</tbody>
+							</table>
+							
+							<% else %>
+							<div class="alert alert-warning">
+								You have not set up any dishes for this course.
+							</div>
+							<% end %>
+						</div>
+					</div>
+					<% end %>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<% content_for :javascript do %>
+
+<script type="text/javascript">
+
+
+</script>
+
+<% end %>
+

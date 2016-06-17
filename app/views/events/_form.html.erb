@@ -1,5 +1,4 @@
-<%= simple_form_for(@event, remote: true, :html => { :role => "form"}) do |f| %>
-<%= f.error_notification %>
+
 <div class="ibox">
   <div class="ibox-content">
     <div class="row">
@@ -11,30 +10,11 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-2">
-        <dl class="dl-horizontal">
-
-          <dt>Date:</dt> <dd><%= @event.event_date %></dd>
-          <dt>Number of Guests:</dt> <dd>  <%= @event.covers %></dd>
-          
-        </dl>
+      <div class="col-lg-2" id="event_info">
+        <%= render 'event_info' %>
       </div>
-      <div class="col-lg-5" id="contact_info">
-        <dl class="dl-horizontal">
-          <dt>Client:</dt> <dd>
-          <%= @event.customer.name %> <%= link_to edit_customer_path(@event.customer), remote: true, class: "btn btn-primary btn-xs" do %>
-              <i class="fa fa-edit"></i>
-              <% end %> <br> <%= @event.customer.contact %>
-          
-          </dd>
-          
-        </dl>
-      </div>
-      <div class="col-lg-5" id="address_info">
-        <dl class="dl-horizontal">
-          <dt>Address:</dt> <dd><%= @event.customer.address %> </dd>
-          
-        </dl>
+      <div id="contact_info">
+        <%= render 'customers/contact_info', customer: @event.customer %>
       </div>
     </div>
 
@@ -44,16 +24,18 @@
           <div class="panel-heading">
             <div class="panel-options">
               <ul class="nav nav-tabs">
-                <li class="active"><a aria-expanded="true" href="#tab-1" data-toggle="tab">Event Deatils</a></li>
-                <li class=""><a aria-expanded="false" href="#tab-2" data-toggle="tab">Event</a></li>
+                <li class="even-tab"><a aria-expanded="true" href="#tab-event" data-toggle="tab">Event Deatils</a></li>
+                <li class="menu-tab"><a aria-expanded="false" href="#tab-menu" data-toggle="tab">Menu</a></li>
               </ul>
             </div>
           </div>
 
           <div class="panel-body">
 
-            <div class="tab-content">
-              <div class="tab-pane active" id="tab-1">
+          <div class="tab-content" id="main-tab">
+              <div class="tab-pane active" id="tab-event">
+                <%= simple_form_for(@event, remote: true, :html => { :role => "form"}) do |f| %>
+                <%= f.error_notification %>
                 <div class="form-inputs">
 
                   <div class="row">
@@ -61,10 +43,6 @@
                       <%= f.input :event_title %>
                       <div class="hr-line-dashed"></div>
                       <%= f.input :event_date, as: :string, input_html: { class: "form-control datepicker", value: Time.now.strftime('%d/%m/%Y') }  %>
-                      <div class="hr-line-dashed"></div>
-                      <%= f.association :customer, :label_method=> lambda { |customer| "#{customer.name} (#{customer.email})"}, value_method: :id, label: false, input_html: { class: "select2" } %>
-
-
                       <div class="hr-line-dashed"></div>
                       <%= f.input :covers %>
                       <div class="hr-line-dashed"></div>
@@ -76,27 +54,60 @@
                       <div class="hr-line-dashed"></div>
                       <%= f.input :allergies %>
                       <div class="hr-line-dashed"></div>
-
-
                     </div>
                     <div class="col-lg-6">
-                    <%= f.input :venue, :input_html => { :rows => 10 }%>
+                      <%= f.input :venue, :input_html => { :rows => 10 }%>
                       <div class="hr-line-dashed"></div>
                       <%= f.input :event_details, :input_html => { :rows => 10 } %>
                       <div class="hr-line-dashed"></div>
                     </div>
                   </div>
-                  
+
                 </div>
 
                 <div class="form-actions">
                   <%= f.button :submit %>
                 </div>
-
+                <% end %>
               </div>
-              <div class="tab-pane" id="tab-2">
+              <div class="tab-pane" id="tab-menu">
+                
+                
+                <% 
+                # check if we already have a menu
+                if @event_menu.blank?
 
-                Tab-2
+                # display standard to start with
+                %>
+                <%= simple_form_for(:menus, remote: true, :url => {:action => :load_menu}, :html => { :role => "form",  class: "form-inline"}) do |f| %>
+                <div class="form-group">
+                  <select class="select2 form-control required" name="menu[id]" id="standard_menu">
+                    <option></option>
+                    <% @menus.each do |menu| %>
+                    <option value="<%= menu.id %>"><%= menu.name %></option>
+                    <% end %>
+                  </select>
+
+                </div>
+                
+                <input type="hidden" name="menu[action]" id="menu_action" value="view">
+                <button class="btn btn-default c_action" type="submit">View</button>
+                <button class="btn btn-info c_action" type="submit">Copy</button>
+                <div class="hr-line-dashed"></div>
+                <% end %>
+
+                <div id="menu_ajax_load"></div>
+                <% else %>
+                <div id="menu_ajax_load">
+                  
+                  <%= render "event_menu" %>
+
+                </div>
+                copy to standard with option to change its name
+                show menu for this event
+                add remove dishes / specify qty per dish
+                manage dishes ingredients
+                <% end %>
 
               </div>
             </div>
@@ -107,39 +118,44 @@
       </div>
     </div>
   </div>
-  <% end %>
+</div>
 
-  <%= render 'dialog' %>
+<%= render 'dialog' %>
 
-  <% content_for :javascript do %>
+<% content_for :javascript do %>
 
-  <script type="text/javascript">
+<script type="text/javascript">
 
 
-    $(function() {
+  $(function() {
 
-      $(".simple_form").validate({
-        errorPlacement: function (error, element) {
-          element.before(error);
-        }
-      });
-
-      $('.datepicker').datepicker({
-        todayBtn: "linked",
-        keyboardNavigation: false,
-        forceParse: false,
-        calendarWeeks: true,
-        autoclose: true,
-        format: 'dd/mm/yyyy'
-      });
-
-      $(".select2").select2({
-        placeholder: "Select customer",
-        allowClear: true
-      });
-
+    $(".simple_form").validate({
+      errorPlacement: function (error, element) {
+        element.before(error);
+      }
     });
 
-  </script>
+    $('.datepicker').datepicker({
+      todayBtn: "linked",
+      keyboardNavigation: false,
+      forceParse: false,
+      calendarWeeks: true,
+      autoclose: true,
+      format: 'dd/mm/yyyy'
+    });
 
-  <% end %>
+    $("#standard_menu").select2({
+      placeholder: "Select standard menu",
+      allowClear: true
+    });
+
+    $(".c_action").click(function(){
+      // console.log($(this).text());
+      $("#menu_action").val($(this).text());
+    })
+
+  });
+
+</script>
+
+<% end %>

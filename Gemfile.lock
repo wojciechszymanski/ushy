@@ -36,6 +36,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    amoeba (3.0.0)
+      activerecord (>= 3.2.6)
     annotate (2.6.5)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
@@ -215,6 +217,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  amoeba
   annotate
   best_in_place
   better_errors

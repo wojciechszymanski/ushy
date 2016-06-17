@@ -4,6 +4,8 @@ console.log('Event updated');
 	// add to select
 	
 	toastr.success('Event was successfully updated');
+	// refresh event info
+	$('#event_info').html('<%= j render("event_info") %>');
 
 <% else %>
 	toastr.error('ERROR(S):<br /> <%= j @event.errors.full_messages.join("<br> ").html_safe  %>.<br />Please try again');

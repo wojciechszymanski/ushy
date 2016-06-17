@@ -73,6 +73,9 @@ gem 'simple_form'
 gem 'unicorn'
 gem 'unicorn-rails'
 
+# gem to allow the duplication of associated child record objects when duplicating an active record model.
+gem 'amoeba'
+
 group :development do
   gem 'better_errors'
   gem 'hub', :require=>nil
